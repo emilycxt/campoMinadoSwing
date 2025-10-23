@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import br.com.cod3r.cm.excecao.ExplosaoException;
 
 public class Tabuleiro {
 
@@ -30,8 +29,8 @@ public class Tabuleiro {
 			.filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
 			.findFirst()
 			.ifPresent(c -> c.abrir());
-		} catch (ExplosaoException e) {
-			
+		} catch (Exception e) {
+			//FIXME ajustar a implementação do método abrir
 			campos.forEach(c -> c.setAberto(true));
 			throw e;
 		}
