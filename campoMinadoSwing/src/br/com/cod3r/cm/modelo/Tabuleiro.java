@@ -91,7 +91,7 @@ public class Tabuleiro implements CampoObservador {
 				.allMatch(c -> c.objetivoAlcancado());
 	}
 	
-	public void Reiniciar() {
+	public void reiniciar() {
 		campos.stream().forEach(c -> c.reiniciar());
 		sortearMinas();
 	}

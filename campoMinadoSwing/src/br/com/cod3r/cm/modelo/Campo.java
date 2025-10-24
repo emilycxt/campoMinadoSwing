@@ -36,7 +36,7 @@ public class Campo {
 		boolean diagonal = linhaDiferente && colunaDiferente;
 
 		int deltaLinha = Math.abs(linha - vizinho.linha);
-		int deltaColuna = Math.abs(linha - vizinho.coluna);
+		int deltaColuna = Math.abs(coluna - vizinho.coluna);
 		int deltaGeral = deltaColuna + deltaLinha;
 
 		if (deltaGeral == 1 && !diagonal) {
@@ -63,21 +63,22 @@ public class Campo {
 	}
 
 	public boolean abrir() {
-		if (!aberto && !marcado) {
-
-			if (minado) {
+		if(!aberto && !marcado) {
+			if(minado) {
 				notificarObservadores(CampoEvento.EXPLODIR);
 				return true;
 			}
+			
 			setAberto(true);
-						
-			if (vizinhancaSegura()) {
+			notificarObservadores(CampoEvento.ABRIR);
+			
+			if(vizinhancaSegura()) {
 				vizinhos.forEach(v -> v.abrir());
 			}
+			
 			return true;
-		} else {
-			return false;
-		}
+			
+		}else return false;
 	}
 
 	public boolean vizinhancaSegura() {
@@ -130,6 +131,7 @@ public class Campo {
 		aberto = false;
 		minado = false;
 		marcado = false;
+		notificarObservadores(CampoEvento.REINICIAR);
 	}
 	
 	public boolean isMinado() {
